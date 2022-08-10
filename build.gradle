@@ -9,3 +9,8 @@ plugins {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext{
+    compileSdkVersion = 32
+    realm = "0.11.1"
+}
