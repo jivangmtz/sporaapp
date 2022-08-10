@@ -3,6 +3,7 @@ package com.ivan.garcia.sporaapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.ivan.garcia.core.realm.User
+import com.mastercard.sonic.widget.SonicView
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.RealmResults
@@ -21,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         myUser.age = 20
         myUser.name = "José"
         myUser.height = 1.70f
+
+        val sonicView: SonicView? = null
     }
 
     fun realmTest() {
