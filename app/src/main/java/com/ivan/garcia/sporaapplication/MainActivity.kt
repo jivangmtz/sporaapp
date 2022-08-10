@@ -2,6 +2,7 @@ package com.ivan.garcia.sporaapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.ivan.garcia.core.realm.User
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.RealmResults
@@ -15,6 +16,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val myUser = User()
+        myUser.age = 20
+        myUser.name = "José"
+        myUser.height = 1.70f
     }
 
     fun realmTest() {
