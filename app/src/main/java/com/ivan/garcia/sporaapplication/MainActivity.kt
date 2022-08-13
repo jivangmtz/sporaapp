@@ -4,14 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.ivan.garcia.core.realm.User
 import com.mastercard.sonic.widget.SonicView
-import io.realm.Realm
+/*import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.RealmResults
-import io.realm.query
-/*import io.realm.kotlin.Realm
+import io.realm.query*/
+import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
 import io.realm.kotlin.ext.query
-import io.realm.kotlin.query.RealmResults*/
+import io.realm.kotlin.query.RealmResults
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

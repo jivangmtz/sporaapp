@@ -1,6 +1,7 @@
 package com.ivan.garcia.core.realm
 
-import io.realm.RealmObject
+//import io.realm.RealmObject
+import io.realm.kotlin.types.RealmObject
 
 class User : RealmObject {
     var name: String = ""
