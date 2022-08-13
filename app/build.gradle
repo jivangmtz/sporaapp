@@ -1,12 +1,12 @@
-def VERSION_NAME = "1.0.0"
-def VERSION_CODE = 1
-def APPLICATION_ID = "com.ivan.garcia.sporaapplication"
-
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'io.realm.kotlin'
 }
+
+def VERSION_NAME = "1.0.0"
+def VERSION_CODE = 1
+def APPLICATION_ID = "com.ivan.garcia.sporaapplication"
 
 android {
     compileSdk rootProject.ext.compileSdkVersion
