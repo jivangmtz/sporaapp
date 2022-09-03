@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Spora Application</string>
+    <string name="btn_view_details">Ver Detalles</string>
+    <string name="tv_director">Director</string>
+    <string name="tv_cast">Actores</string>
+    <string name="tv_sinopsis">Sinopsis</string>
 </resources>
