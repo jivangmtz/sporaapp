@@ -5,11 +5,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.ivan.garcia.sporaapplication.adapters.MoviesAdapter
 import com.ivan.garcia.sporaapplication.adapters.MoviesListener
+import com.ivan.garcia.sporaapplication.databinding.ActivityMainBinding
 import com.ivan.garcia.sporaapplication.models.Movie
 import java.io.IOException
 
@@ -17,18 +17,19 @@ const val EXTRA_OBJECT = "moviemodel"
 
 class MainActivity : AppCompatActivity(), MoviesListener {
 
+    private lateinit var binding: ActivityMainBinding
     private lateinit var moviesList: ArrayList<Movie>
     private lateinit var moviesAdapter: MoviesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         loadJsonDataFromAsset(applicationContext, "movies.json")
 
-        val rvMovies = findViewById<RecyclerView>(R.id.rvMovies)
         moviesAdapter = MoviesAdapter(this)
-        rvMovies.adapter = moviesAdapter
+        binding.rvMovies.adapter = moviesAdapter
 
         moviesAdapter.data = moviesList
     }
