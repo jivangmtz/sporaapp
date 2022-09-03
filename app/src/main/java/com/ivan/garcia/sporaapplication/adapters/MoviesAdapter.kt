@@ -24,23 +24,24 @@ class MoviesAdapter(private val moviesListener: MoviesListener) :
             notifyDataSetChanged()
         }
 
-    private val PAIR = 0
-    private val ODD = 1
+    private val pair = 0
+    private val odd = 1
+
+    private lateinit var context: Context
 
     override fun getItemCount() = data.size
-    private lateinit var context: Context
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val movie = data[position]
 
         when (holder.itemViewType) {
-            PAIR -> {
-                val vh1 = holder as ViewHolderPair
-                configureViewHolderPair(vh1, movie, position)
+            pair -> {
+                val vhPair = holder as ViewHolderPair
+                configureViewHolderPair(vhPair, movie, position)
             }
             else -> {
-                val vh2 = holder as ViewHolderOdd
-                configureViewHolderOdd(vh2, movie)
+                val vhOdd = holder as ViewHolderOdd
+                configureViewHolderOdd(vhOdd, movie)
             }
         }
     }
@@ -51,12 +52,12 @@ class MoviesAdapter(private val moviesListener: MoviesListener) :
         val viewHolder: RecyclerView.ViewHolder
         val inflater = LayoutInflater.from(parent.context)
         viewHolder = when (viewType) {
-            PAIR -> {
-                val pairView: View = inflater.inflate(R.layout.moview_item_layout, parent, false)
+            pair -> {
+                val pairView: View = inflater.inflate(R.layout.moview_item_layout_pair, parent, false)
                 ViewHolderPair(pairView)
             }
             else -> {
-                val oddView: View = inflater.inflate(R.layout.moview_item_layout2, parent, false)
+                val oddView: View = inflater.inflate(R.layout.moview_item_layout_odd, parent, false)
                 ViewHolderOdd(oddView)
             }
         }
@@ -65,9 +66,9 @@ class MoviesAdapter(private val moviesListener: MoviesListener) :
 
     override fun getItemViewType(position: Int): Int {
         return if (position % 2 == 0) {
-            PAIR
+            pair
         } else {
-            ODD
+            odd
         }
     }
 
@@ -112,7 +113,7 @@ class ViewHolderOdd(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val tvCast: TextView = itemView.findViewById(R.id.tvMovieCast2)
 }
 
-class ViewHolderPair(v: View) : RecyclerView.ViewHolder(v) {
+class ViewHolderPair(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val ivPoster: ImageView = itemView.findViewById(R.id.ivPoster)
     val tvTitle: TextView = itemView.findViewById(R.id.tvMovieTitle)
     val tvDirector: TextView = itemView.findViewById(R.id.tvMovieDirector)
