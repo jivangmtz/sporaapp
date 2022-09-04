@@ -4,10 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ivan.garcia.sporaapplication.EXTRA_OBJECT
 import com.ivan.garcia.sporaapplication.MovieDetailsActivity
@@ -30,9 +26,6 @@ class MoviesAdapter(private val moviesListener: MoviesListener) :
 
     private lateinit var context: Context
 
-    private lateinit var bindingPair: MoviewItemLayoutPairBinding
-    private lateinit var bindingOdd: MoviewItemLayoutOddBinding
-
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -41,11 +34,11 @@ class MoviesAdapter(private val moviesListener: MoviesListener) :
         when (holder.itemViewType) {
             pair -> {
                 val vhPair = holder as ViewHolderPair
-                configureViewHolderPair(vhPair, movie, position)
+                vhPair.bind(movie, position, context, moviesListener)
             }
             else -> {
                 val vhOdd = holder as ViewHolderOdd
-                configureViewHolderOdd(vhOdd, movie)
+                vhOdd.bind(movie)
             }
         }
     }
@@ -57,11 +50,11 @@ class MoviesAdapter(private val moviesListener: MoviesListener) :
         val inflater = LayoutInflater.from(parent.context)
         viewHolder = when (viewType) {
             pair -> {
-                bindingPair = MoviewItemLayoutPairBinding.inflate(inflater, parent, false)
+                val bindingPair = MoviewItemLayoutPairBinding.inflate(inflater, parent, false)
                 ViewHolderPair(bindingPair)
             }
             else -> {
-                bindingOdd = MoviewItemLayoutOddBinding.inflate(inflater, parent, false)
+                val bindingOdd = MoviewItemLayoutOddBinding.inflate(inflater, parent, false)
                 ViewHolderOdd(bindingOdd)
             }
         }
@@ -75,55 +68,45 @@ class MoviesAdapter(private val moviesListener: MoviesListener) :
             odd
         }
     }
+}
 
-    private fun configureViewHolderPair(holder: ViewHolderPair, movie: Movie, position: Int) {
-        holder.tvTitle.text = movie.title
-        holder.tvDirector.text = movie.director
-        holder.tvCast.text = movie.actors
+class ViewHolderOdd(private val binding: MoviewItemLayoutOddBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+    fun bind(movie: Movie) {
+        binding.tvMovieTitle2.text = movie.title
+        binding.tvMovieDirector2.text = movie.director
+        binding.tvMovieCast2.text = movie.actors
 
         Picasso.get()
             .load(movie.posterUrl)
             .placeholder(R.drawable.movie_default)
-            .into(holder.ivPoster)
+            .into(binding.ivPoster2)
+    }
+}
 
-        holder.itemView.setOnClickListener {
+class ViewHolderPair(private val binding: MoviewItemLayoutPairBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+    fun bind(movie: Movie, position: Int, context: Context, moviesListener: MoviesListener) {
+        binding.tvMovieTitle.text = movie.title
+        binding.tvMovieDirector.text = movie.director
+        binding.tvMovieCast.text = movie.actors
+
+        Picasso.get()
+            .load(movie.posterUrl)
+            .placeholder(R.drawable.movie_default)
+            .into(binding.ivPoster)
+
+        binding.root.setOnClickListener {
             val intent = Intent(context, MovieDetailsActivity::class.java).apply {
                 putExtra(EXTRA_OBJECT, movie)
             }
             context.startActivity(intent)
         }
 
-        holder.ivPoster.setOnClickListener { moviesListener.onPosterSelected(movie) }
-        holder.btnViewDetails.setOnClickListener { moviesListener.onMovieSelected(movie) }
-        holder.btnDelete.setOnClickListener { moviesListener.deleteMovie(position) }
+        binding.ivPoster.setOnClickListener { moviesListener.onPosterSelected(movie) }
+        binding.btnViewDetails.setOnClickListener { moviesListener.onMovieSelected(movie) }
+        binding.btnDelete.setOnClickListener { moviesListener.deleteMovie(position) }
     }
-
-    private fun configureViewHolderOdd(holder: ViewHolderOdd, movie: Movie) {
-        holder.tvTitle.text = movie.title
-        holder.tvDirector.text = movie.director
-        holder.tvCast.text = movie.actors
-
-        Picasso.get()
-            .load(movie.posterUrl)
-            .placeholder(R.drawable.movie_default)
-            .into(holder.ivPoster)
-    }
-}
-
-class ViewHolderOdd(itemView: MoviewItemLayoutOddBinding) : RecyclerView.ViewHolder(itemView.root) {
-    val ivPoster: ImageView = itemView.ivPoster2
-    val tvTitle: TextView = itemView.tvMovieTitle2
-    val tvDirector: TextView = itemView.tvMovieDirector2
-    val tvCast: TextView = itemView.tvMovieCast2
-}
-
-class ViewHolderPair(itemView: MoviewItemLayoutPairBinding) : RecyclerView.ViewHolder(itemView.root) {
-    val ivPoster: ImageView = itemView.ivPoster
-    val tvTitle: TextView = itemView.tvMovieTitle
-    val tvDirector: TextView = itemView.tvMovieDirector
-    val tvCast: TextView = itemView.tvMovieCast
-    val btnViewDetails: Button = itemView.btnViewDetails
-    val btnDelete: ImageButton = itemView.btnDelete
 }
 
 interface MoviesListener {

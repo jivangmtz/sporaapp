@@ -17,21 +17,21 @@ const val EXTRA_OBJECT = "moviemodel"
 
 class MainActivity : AppCompatActivity(), MoviesListener {
 
-    private lateinit var binding: ActivityMainBinding
     private lateinit var moviesList: ArrayList<Movie>
     private lateinit var moviesAdapter: MoviesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         loadJsonDataFromAsset(applicationContext, "movies.json")
 
         moviesAdapter = MoviesAdapter(this)
-        binding.rvMovies.adapter = moviesAdapter
-
         moviesAdapter.data = moviesList
+
+        ActivityMainBinding.inflate(layoutInflater).apply {
+            setContentView(root)
+            rvMovies.adapter = moviesAdapter
+        }
     }
 
     private fun loadJsonDataFromAsset(context: Context, fileName: String) {
