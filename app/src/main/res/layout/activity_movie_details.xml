@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="movie"
+            type="com.ivan.garcia.sporaapplication.models.Movie" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,6 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:text="@{movie.title}"
             app:layout_constraintEnd_toEndOf="@+id/tvDirectorLbl"
             app:layout_constraintStart_toStartOf="@+id/tvDirectorLbl"
             app:layout_constraintTop_toBottomOf="@+id/tvDirectorLbl" />
@@ -44,6 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:text="@{movie.actors}"
             app:layout_constraintEnd_toEndOf="@+id/tvCastLbl"
             app:layout_constraintStart_toStartOf="@+id/tvCastLbl"
             app:layout_constraintTop_toBottomOf="@+id/tvCastLbl" />
@@ -64,6 +73,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:text="@{movie.plot}"
             app:layout_constraintEnd_toEndOf="@+id/tvSinopsisLbl"
             app:layout_constraintStart_toStartOf="@+id/tvSinopsisLbl"
             app:layout_constraintTop_toBottomOf="@+id/tvSinopsisLbl" />

@@ -14,11 +14,8 @@ class MovieDetailsActivity : AppCompatActivity() {
         binding = ActivityMovieDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         val movie = intent.getSerializableExtra(EXTRA_OBJECT) as? Movie
 
-        binding.tvDirector.text = movie?.director ?: ""
-        binding.tvCast.text = movie?.actors ?: ""
-        binding.tvSinopsis.text = movie?.plot ?: ""
+        binding.movie = movie
     }
 }
