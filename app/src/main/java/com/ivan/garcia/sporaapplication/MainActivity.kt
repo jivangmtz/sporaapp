@@ -23,8 +23,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         rewardViewModel.rewardModel.observe(this, Observer { reward ->
-            binding.tvRewardCode.text = reward.rewardCode
-            binding.tvRewardDesc.text = reward.rewardDescription
+            binding.reward = reward
         })
     }
 }
