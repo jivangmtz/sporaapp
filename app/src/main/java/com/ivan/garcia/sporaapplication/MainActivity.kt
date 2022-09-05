@@ -1,51 +1,44 @@
 package com.ivan.garcia.sporaapplication
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import com.ivan.garcia.sporaapplication.adapters.MoviesAdapter
 import com.ivan.garcia.sporaapplication.adapters.MoviesListener
 import com.ivan.garcia.sporaapplication.databinding.ActivityMainBinding
 import com.ivan.garcia.sporaapplication.models.Movie
-import java.io.IOException
+import com.ivan.garcia.sporaapplication.viewmodel.MoviesViewModel
+import com.ivan.garcia.sporaapplication.viewmodel.MoviesViewModelFactory
 
 const val EXTRA_OBJECT = "moviemodel"
 
 class MainActivity : AppCompatActivity(), MoviesListener {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var moviesList: ArrayList<Movie>
-    private lateinit var moviesAdapter: MoviesAdapter
+    private var moviesAdapter: MoviesAdapter = MoviesAdapter(this)
+    private val moviesViewModel: MoviesViewModel by viewModels {
+        MoviesViewModelFactory(
+            fileName = "movies.json",
+            application = application
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        loadJsonDataFromAsset(applicationContext, "movies.json")
-
-        moviesAdapter = MoviesAdapter(this)
-        binding.rvMovies.adapter = moviesAdapter
-
-        moviesAdapter.data = moviesList
-    }
-
-    private fun loadJsonDataFromAsset(context: Context, fileName: String) {
-        val jsonString: String
-        try {
-            jsonString = context.assets.open(fileName).bufferedReader().use { it.readText() }
-
-            val gson = Gson()
-            val moviesListType = object : TypeToken<List<Movie>>() {}.type
-            moviesList = gson.fromJson(jsonString, moviesListType)
-        } catch (ioException: IOException) {
-            ioException.printStackTrace()
+        binding = ActivityMainBinding.inflate(layoutInflater).apply {
+            setContentView(root)
+            //btnGetMovies.setOnClickListener { moviesViewModel.getMovies() }
+            rvMovies.adapter = moviesAdapter
+            rvMovies.adapter = moviesAdapter
         }
+
+        moviesViewModel.getMovies()
+        moviesViewModel.movies.observe(this, Observer { moviesList ->
+            moviesAdapter.data = moviesList
+        })
     }
 
     override fun onMovieSelected(movie: Movie) {
@@ -57,8 +50,7 @@ class MainActivity : AppCompatActivity(), MoviesListener {
     }
 
     override fun deleteMovie(position: Int) {
-        moviesList.removeAt(position)
-        moviesAdapter.notifyItemRemoved(position)
+        moviesViewModel.removeMovieAt(position)
     }
 
     private fun showMovieDetails(movie: Movie) {

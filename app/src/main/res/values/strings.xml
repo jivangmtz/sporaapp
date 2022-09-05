@@ -4,4 +4,5 @@
     <string name="tv_director">Director</string>
     <string name="tv_cast">Actores</string>
     <string name="tv_sinopsis">Sinopsis</string>
+    <string name="btn_get_movies">Get Movies</string>
 </resources>
