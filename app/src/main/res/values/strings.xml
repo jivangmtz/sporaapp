@@ -2,4 +2,12 @@
     <string name="app_name">Spora Application</string>
     <string name="hello">Hello</string>
     <string name="good_bye">Good bye</string>
+    <string name="string_format_ex" translatable="false">Hello %1$s!, your age is %2$d, you have %3$.2f dollars. This is %4$b</string>
+    <string name="format_checkbox_tyc" translatable="false">He leído y estoy de acuerdo con los &lt;a href="%1$s">Términos y condiciones&lt;/a>.</string>
+    <string-array name="persons">
+        <item>Juan</item>
+        <item>Luis</item>
+        <item>Mario</item>
+        <item>Daniel</item>
+    </string-array>
 </resources>
