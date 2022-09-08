@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Spora Application</string>
+    <string name="hello">Salut</string>
+    <string name="good_bye">au revoir</string>
+</resources>

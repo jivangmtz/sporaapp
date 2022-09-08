@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Spora Application</string>
+    <string name="hello">Hello</string>
+    <string name="good_bye">Good bye</string>
 </resources>
