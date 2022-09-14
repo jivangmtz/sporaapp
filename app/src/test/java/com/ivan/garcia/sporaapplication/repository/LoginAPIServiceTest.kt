@@ -35,7 +35,7 @@ class LoginAPIServiceTest {
     }
 
     @Test
-    fun validateUserData_return_success() {
+    fun validateUserData_return_success() =
         runBlocking {
             val mockResponse = MockResponse()
             mockWebServer.enqueue(
@@ -47,7 +47,6 @@ class LoginAPIServiceTest {
             Assert.assertEquals(request.path, LoginAPIService.VALIDATE_USER_PATH)
             Assert.assertNotNull(response)
         }
-    }
 
     @After
     fun deconstruct() {

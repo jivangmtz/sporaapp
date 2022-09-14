@@ -24,31 +24,25 @@ class LoginRepoTest {
     }
 
     @Test
-    fun verifyThatResponseIsALoginResponseOnValidateLoginSuccess() {
+    fun verifyThatResponseIsALoginResponseOnValidateLoginSuccess() =
         runBlocking {
             Mockito.`when`(loginRepo.validateLogin(email, password)).thenReturn(
                 LoginResponse()
             )
-        }
 
-        runBlocking {
             Assert.assertEquals(
                 loginRepo.validateLogin(email, password),
                 LoginResponse()
             )
         }
-    }
 
     @Test
-    fun verifyThatResponseIsNullOnValidateLoginError() {
+    fun verifyThatResponseIsNullOnValidateLoginError() =
         runBlocking {
             Mockito.`when`(loginRepo.validateLogin(email, password)).thenReturn(
                 null
             )
-        }
 
-        runBlocking {
             Assert.assertEquals(loginRepo.validateLogin(email, password), null)
         }
-    }
 }
